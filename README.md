@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://github.com/Liodeus/Crawlmap"><img src="https://i.ibb.co/N12TkGN/logo-crawlmap.png" alt="logo" border="0"></a>
-<p align="center">A python3 script to change your crawling logs as a mindmap
+<p align="center">A python3 script to change your crawling logs to a mindmap
 
 <p align="center">
   <a href="#introduction">Introduction</a>
