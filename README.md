@@ -7,6 +7,7 @@
  • <a href="#requirements">Requirements</a>
  • <a href="#installation">Installation</a>
  • <a href="#usage">Usage</a>
+ • <a href="#output-to-mind">Output to mindmap</a>
 </p>
 
 <div align="center">
@@ -55,3 +56,58 @@ optional arguments:
   --exclude EXCLUDE     Exclude extensions (Example : "png,svg,css,ico")
   --nofiles             Don't print files, only folders
 ```
+
+### Burp Suite
+
+To crawl with Burp Suite, I do as follow:
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_one.png">
+
+Select "Crawl":
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_two.png">
+
+"Select from library", personnaly I often use those two:
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_three.png">
+
+Then I increase the "Maximum concurrent requests":
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_four.png">
+
+Let the crawler do is work, and when finish, go to "Target". Select **All** requests in the "Contents" tab. And finaly "Save selected items".
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_five.png">
+
+### Gospider
+
+For Gospider I use this command:
+
+`gospider -s http://127.0.0.1:8084 -d 5 --sitemap -q --json -o ./`
+
+### Run Crawlmap
+#### Only Burp Suite
+`python3 crawlmap.py --burp dvwa.burp`
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/only_burp.png">
+
+Which gives this output:
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/only_burp_out.png">
+
+#### Burp Suite and Gospider
+`python3 crawlmap.py --burp dvwa.burp --gospider dvwa.gospider`
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider.png">
+
+Which gives this output:
+
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider_out.png">
+
+## Output to mindmap
+### Markmap
+
+https://markmap.js.org/repl
+
+### MarkMind
+
+https://github.com/MarkMindCkm/Mark-Mind

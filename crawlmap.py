@@ -181,15 +181,15 @@ if __name__ == '__main__':
 	exclude_extensions = [x.lower() for x in args.exclude.split(',')]
 
 	# Launch the parsing of output file(s)
-	if gospider:
+	paths_burp, url_domain = parsing_burp(burp, exclude_extensions)
+	domain = url_domain.split('//')[1]
+	paths_burp = merge_parsing(paths_burp, domain, args.nofiles)
+
+	if gospider :
 		paths_gospider = parsing_gospider(gospider, exclude_extensions)
 		paths_gospider = merge_parsing(paths_gospider, domain, args.nofiles)
 		merge_paths = merge_burp_gospider(paths_burp, paths_gospider)
 
 		writing_md(merge_paths, url_domain, out_file)
 	else:
-		paths_burp, url_domain = parsing_burp(burp, exclude_extensions)
-		domain = url_domain.split('//')[1]
-		paths_burp = merge_parsing(paths_burp, domain, args.nofiles)
-
 		writing_md(paths_burp, url_domain, out_file)
