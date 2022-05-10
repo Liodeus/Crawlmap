@@ -121,11 +121,39 @@ Which gives this output:
 	<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider_out.png">
 </p>
 
+#### Nofiles flag
+This flag is to output only folders
+
+`python3 crawlmap.py --burp dvwa.burp --nofiles`
+
+This command remove **all** the files from the output.
+
+#### Exclude flag
+This flag is to remove file extensions that you don't want.
+
+`python3 crawlmap.py --burp dvwa.burp --exclude "js"`
+
+This command remove all **.js** files from the output.
+
 ## Output to mindmap
 ### Markmap
 
-https://markmap.js.org/repl
+Go to [Markmap](https://markmap.js.org/repl) and paste the ouput from crawlmap:
+
+<p align="center">
+	<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/import_markmap.png">
+</p>
 
 ### MarkMind
 
-https://github.com/MarkMindCkm/Mark-Mind
+Download [MarkMind](https://github.com/MarkMindCkm/Mark-Mind), then import the output from crawlmap:
+
+<p align="center">
+	<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/import_markdown_markmind.png">
+</p>
+
+Then go to the mindmap view:
+
+<p align="center">
+	<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/import_markdown_markmind_tree.png">
+</p> 
