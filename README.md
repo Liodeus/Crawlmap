@@ -7,7 +7,7 @@
  • <a href="#requirements">Requirements</a>
  • <a href="#installation">Installation</a>
  • <a href="#usage">Usage</a>
- • <a href="#output-to-mind">Output to mindmap</a>
+ • <a href="#output-to-mindmap">Output to mindmap</a>
 </p>
 
 <div align="center">
@@ -61,23 +61,23 @@ optional arguments:
 
 To crawl with Burp Suite, I do as follow:
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_one.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_one.png" align="center">
 
 Select "Crawl":
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_two.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_two.png" align="center">
 
 "Select from library", personnaly I often use those two:
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_three.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_three.png" align="center">
 
 Then I increase the "Maximum concurrent requests":
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_four.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_four.png" align="center">
 
 Let the crawler do is work, and when finish, go to "Target". Select **All** requests in the "Contents" tab. And finaly "Save selected items".
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_five.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_five.png" align="center">
 
 ### Gospider
 
@@ -89,19 +89,19 @@ For Gospider I use this command:
 #### Only Burp Suite
 `python3 crawlmap.py --burp dvwa.burp`
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/only_burp.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/only_burp.png" align="center">
 
 Which gives this output:
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/only_burp_out.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/only_burp_out.png" align="center">
 
 #### Burp Suite and Gospider
 `python3 crawlmap.py --burp dvwa.burp --gospider dvwa.gospider`
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider.png" align="center">
 
 Which gives this output:
 
-<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider_out.png">
+<img src="https://github.com/Liodeus/Crawlmap/blob/main/images_example/burp_gospider_out.png" align="center">
 
 ## Output to mindmap
 ### Markmap
