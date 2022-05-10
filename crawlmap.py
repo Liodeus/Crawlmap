@@ -23,11 +23,11 @@ def banner():
 	print(banner)
 
 
-def parsing_burp(burp_file_path, flag_nofile):
+def parsing_burp(burp_file_path, exclude_extensions):
 	"""
 		Parse the XML from the BurpSuite output
 
-		Return a sorted list of path and the url
+		Return a list of path and the url
 	"""
 	print("[Parsing Burpsuite file]")
 	paths = []
@@ -50,37 +50,21 @@ def parsing_burp(burp_file_path, flag_nofile):
 			data = base64.b64decode(value).decode("utf-8").split('\r\n')
 		except:
 			continue
+		
 		url = parse.urlsplit(url_domain + data[0].split()[1])
-
-		if flag_nofile:
-			path = url.path.split('.')[0]
-
-			if len(path) > 1:
-				path = '/'.join(path.split('/')[:-1])
-		else:
-			path = url.path
-
-		url = f"{url.scheme}://{url.netloc}{path}"
-
-		if url[-1] != '/':
-			url = url + '/'
-
-		if url not in paths:
-			paths.append(url)
-
-	return sorted(paths), url_domain
+		paths.append(url)
+	
+	return paths, url_domain
 
 
-def parsing_gospider(gospider_file_path, url_domain):
+def parsing_gospider(gospider_file_path, exclude_extensions):
 	"""
 		Parse the JSON from the Gospider output
 
 		Return a list of path
 	"""
 	print("[Parsing Gospider file]")
-
-	domain = url_domain.split('//')[1]
-	urls_list = []
+	paths = []
 
 	with open(gospider_file_path) as f:
 		for line in f:
@@ -96,29 +80,50 @@ def parsing_gospider(gospider_file_path, url_domain):
 				pass
 
 			url = parse.urlsplit(url_to_parse)
+			paths.append(url)
+	
+	return paths
 
-			scheme = url.scheme
-			netloc = url.netloc
-			path = url.path
 
-			if netloc == domain:
-				split_path = path.split('.')
+def merge_parsing(list_of_urlsplit, domain, flag_nofile):
+	"""
+		Take a list of path as input, remove unneeded data from url
 
-				if len(split_path) > 1:
-					path = '/'.join(path.split('/')[:-1])
+		Return a sorted list of url
+	"""
+	paths = []
+	for url in list_of_urlsplit:
+		if url.netloc == domain:
+			if flag_nofile:
+				path = url.path.split('.')[0]
+				data = path.split('/')
+				path = '/'.join(data[:-1])
+			else:
+				path = url.path
 
-				url = f"{scheme}://{netloc}{path}"
-				if url not in urls_list:
-					urls_list.append(url)
+				# Remove exclude extensions
+				data = path.split('.')
+				if len(data) > 1:
+					if data[-1] in exclude_extensions:
+						path = '/'.join(path.split('/')[:-1])
+				
+			url = f"{url.scheme}://{url.netloc}{path}"
 
-	return urls_list
+			# Add a '/' at the end if not already there
+			if url[-1] != '/':
+				url = url + '/'
+
+			if url not in paths:
+				paths.append(url)
+
+	return sorted(paths)
 
 
 def merge_burp_gospider(paths_burp, paths_gospider):
 	"""
 		Merge results from burp and gospider and remove duplicates
 
-		Return a sorted list
+		Return a sorted list of unique path
 	"""
 	unique_paths = []
 
@@ -157,32 +162,33 @@ def writing_md(paths, url_domain, out_file):
 				counter_tab += 1
 
 
-
 if __name__ == '__main__':
 	banner()
+
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-b", "--burp", required=True, help="Output from BurSuite (xml)", type=str)
 	parser.add_argument("-g", "--gospider", help="Output from Gospider (json)", type=str)
 	parser.add_argument("-o", "--out", help="Output file", type=str)
-	parser.add_argument("--nofiles", help="Don't print files, only folders", action="store_true", default=False	)
+	parser.add_argument("--nofiles", help="Don't print files, only folders", action="store_true", default=False)
+	parser.add_argument("--exclude", help="Exclude extensions (Example : \"png,svg,css,ico\")", type=str, default="")
 	args = parser.parse_args()
 
 	# Getting user input
 	burp = args.burp
 	gospider = args.gospider
 	out_file = args.out
+	exclude_extensions = [x.lower() for x in args.exclude.split(',')]
 
 	# Launch the parsing of output file(s)
-	paths_burp, url_domain = parsing_burp(burp, args.nofiles)
-
-	if gospider :
-		paths_gospider = parsing_gospider(gospider, url_domain)
+	if gospider:
+		paths_gospider = parsing_gospider(gospider, exclude_extensions)
+		paths_gospider = merge_parsing(paths_gospider, domain, args.nofiles)
 		merge_paths = merge_burp_gospider(paths_burp, paths_gospider)
 
-		# Write markdown to file
 		writing_md(merge_paths, url_domain, out_file)
 	else:
-		# Write markdown to file
-		writing_md(paths_burp, url_domain, out_file)
+		paths_burp, url_domain = parsing_burp(burp, exclude_extensions)
+		domain = url_domain.split('//')[1]
+		paths_burp = merge_parsing(paths_burp, domain, args.nofiles)
 
-	print(args.nofiles	)
+		writing_md(paths_burp, url_domain, out_file)
