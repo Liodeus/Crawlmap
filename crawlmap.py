@@ -1,4 +1,5 @@
 from urllib import parse
+
 import xml.etree.ElementTree as ET
 import argparse
 import base64
@@ -169,8 +170,8 @@ if __name__ == '__main__':
 	parser.add_argument("-b", "--burp", required=True, help="Output from BurSuite (xml)", type=str)
 	parser.add_argument("-g", "--gospider", help="Output from Gospider (json)", type=str)
 	parser.add_argument("-o", "--out", help="Output file", type=str)
-	parser.add_argument("--nofiles", help="Don't print files, only folders", action="store_true", default=False)
 	parser.add_argument("--exclude", help="Exclude extensions (Example : \"png,svg,css,ico\")", type=str, default="")
+	parser.add_argument("--nofiles", help="Don't print files, only folders", action="store_true", default=False)
 	args = parser.parse_args()
 
 	# Getting user input
