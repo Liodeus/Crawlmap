@@ -36,7 +36,7 @@ git clone https://github.com/Liodeus/Crawlmap.git
 
 ## Usage
 
-```bash
+```
 python3 crawlmap.py --help
 
  _____                    _                       
@@ -49,16 +49,16 @@ python3 crawlmap.py --help
                                            |_|
                                             By Liodeus
   
-usage: crawlmap.py [-h] [-b BURP] [-g GOSPIDER] [-z ZAPROXY] -u URL [-o OUT] [--exclude EXCLUDE] [--nofiles]
+usage: crawlmap.py [-h] -u URL [-b BURP] [-g GOSPIDER] [-z ZAPROXY] [-o OUT] [--exclude EXCLUDE] [--nofiles]
 
 optional arguments:
   -h, --help            show this help message and exit
+  -u URL, --url URL     Base URL to filter on
   -b BURP, --burp BURP  Output from BurSuite (xml)
   -g GOSPIDER, --gospider GOSPIDER
                         Output from Gospider (json)
   -z ZAPROXY, --zaproxy ZAPROXY
                         Output from Zaproxy (txt)
-  -u URL, --url URL     Base URL to filter on
   -o OUT, --out OUT     Output file
   --exclude EXCLUDE     Exclude extensions (Example : "png,svg,css,ico")
   --nofiles             Don't print files, only folders

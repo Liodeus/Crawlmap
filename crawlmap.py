@@ -7,10 +7,10 @@ if __name__ == '__main__':
 	banner()
 
 	parser = argparse.ArgumentParser()
+	parser.add_argument("-u", "--url", required=True, help="Base URL to filter on", type=str)
 	parser.add_argument("-b", "--burp", help="Output from BurSuite (xml)", type=str)
 	parser.add_argument("-g", "--gospider", help="Output from Gospider (json)", type=str)
 	parser.add_argument("-z", "--zaproxy", help="Output from Zaproxy (txt)", type=str)
-	parser.add_argument("-u", "--url", required=True, help="Base URL to filter on", type=str)
 	parser.add_argument("-o", "--out", help="Output file", type=str)
 	parser.add_argument("--exclude", help="Exclude extensions (Example : \"png,svg,css,ico\")", type=str, default="")
 	parser.add_argument("--nofiles", help="Don't print files, only folders", action="store_true", default=False)
