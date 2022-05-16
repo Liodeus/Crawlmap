@@ -8,6 +8,7 @@
  • <a href="#installation">Installation</a>
  • <a href="#usage">Usage</a>
  • <a href="#examples">Examples</a>
+ • <a href="https://github.com/Liodeus/Crawlmap/wiki">Wiki</a>
 </p>
 
 <div align="center">
@@ -63,6 +64,6 @@ optional arguments:
   --nofiles             Don't print files, only folders
 ```
 
-## Example
+## Examples
 
 Go to the [wiki](https://github.com/Liodeus/Crawlmap/wiki)
