@@ -7,7 +7,7 @@
  • <a href="#requirements">Requirements</a>
  • <a href="#installation">Installation</a>
  • <a href="#usage">Usage</a>
- • <a href="#example">Example</a>
+ • <a href="#examples">Examples</a>
 </p>
 
 <div align="center">
@@ -18,10 +18,10 @@
 
 ## Introduction
 
-This tool is made to automate the process of creating a mindmap from craling logs. This tool support logs from:
-- [Burp Suite](https://portswigger.net/burp)
-- [Gospider](https://github.com/jaeles-project/gospider)
-- [Zaproxy](https://www.zaproxy.org/)
+This tool is made to automate the process of creating a mindmap from crawling logs. This tool support logs from:
+- [Burp Suite](https://portswigger.net/burp) (xml format)
+- [Gospider](https://github.com/jaeles-project/gospider) (json format)
+- [Zaproxy](https://www.zaproxy.org/) (txt format)
 
 ## Requirements
 
