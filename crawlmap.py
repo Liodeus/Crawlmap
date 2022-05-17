@@ -1,8 +1,6 @@
 from functions.functions import *
 import argparse
 
-## http - https problem
-
 if __name__ == '__main__':
 	banner()
 
