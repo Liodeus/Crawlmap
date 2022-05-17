@@ -20,8 +20,9 @@ if __name__ == '__main__':
 	burp = args.burp
 	gospider = args.gospider
 	zaproxy = args.zaproxy
-	url = args.url
-	domain = parse.urlsplit(url).netloc
+	url = parse.urlsplit(args.url)
+	domain = url.netloc
+	url = f"{url.scheme}://{url.netloc}"
 	out_file = args.out
 	nofiles = args.nofiles
 	exclude_extensions = [x.lower() for x in args.exclude.split(',')]
