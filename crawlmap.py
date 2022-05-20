@@ -1,7 +1,11 @@
-from functions.functions import *
+from functions.burp import *
+from functions.gospider import *
+from functions.zaproxy import *
+from functions.misc import *
 import argparse
 
-if __name__ == '__main__':
+
+def main():
 	banner()
 
 	parser = argparse.ArgumentParser()
@@ -12,6 +16,7 @@ if __name__ == '__main__':
 	parser.add_argument("-o", "--out", help="Output file", type=str)
 	parser.add_argument("--exclude", help="Exclude extensions (Example : \"png,svg,css,ico\")", type=str, default="")
 	parser.add_argument("--nofiles", help="Don't print files, only folders", action="store_true", default=False)
+	parser.add_argument("--params", help="Print GET/POST parameters", action="store_true", default=False)
 	args = parser.parse_args()
 
 	# Getting user input
@@ -24,10 +29,11 @@ if __name__ == '__main__':
 	out_file = args.out
 	nofiles = args.nofiles
 	exclude_extensions = [x.lower() for x in args.exclude.split(',')]
+	params = args.params
 
-	paths_burp = []
-	paths_gospider = []
-	paths_zaproxy = []
+	paths_burp = {}
+	paths_gospider = {}
+	paths_zaproxy = {}
 
 	if burp:
 		paths_burp = parsing_burp(burp, exclude_extensions, url)
@@ -42,4 +48,10 @@ if __name__ == '__main__':
 		paths_zaproxy = merge_parsing(paths_zaproxy, domain, nofiles, exclude_extensions)
 
 	merge_paths = merge_all_paths(paths_burp, paths_gospider, paths_zaproxy)
-	writing_md(merge_paths, url, out_file)
+	# for x in merge_paths:
+	# 	print(x)
+	writing_md(merge_paths, url, out_file, params)
+
+
+if __name__ == '__main__':
+	main()
