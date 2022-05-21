@@ -48,8 +48,6 @@ def main():
 		paths_zaproxy = merge_parsing(paths_zaproxy, domain, nofiles, exclude_extensions)
 
 	merge_paths = merge_all_paths(paths_burp, paths_gospider, paths_zaproxy)
-	# for x in merge_paths:
-	# 	print(x)
 	writing_md(merge_paths, url, out_file, params)
 
 

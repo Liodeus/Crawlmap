@@ -1,5 +1,4 @@
 from urllib import parse
-
 import xml.etree.ElementTree as ET
 import base64
 

@@ -1,5 +1,4 @@
 from urllib import parse
-
 import json
 
 
@@ -15,7 +14,6 @@ def parsing_gospider(gospider_file_path, exclude_extensions):
 	try:
 		with open(gospider_file_path) as f:
 			for line in f:
-				# print(line)
 				try:
 					data = json.loads(line)
 					type_data = data["type"]
