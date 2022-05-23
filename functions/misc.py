@@ -22,7 +22,9 @@ def banner():
 
 def merge_dict(dictOne, dictTwo):
 	"""
-		TODO
+		Merge two dictionnary and only add once a duplicate
+
+		Return a dictionnary
 	"""
 
 	dictThree = {}
@@ -37,7 +39,7 @@ def merge_parsing(list_of_urlsplit, domain, flag_nofile, exclude_extensions):
 	"""
 		Take a list of path as input, remove unneeded data from url
 
-		Return a sorted list of url
+		Return a list of url
 	"""
 
 	paths = {}
@@ -75,24 +77,31 @@ def merge_all_paths(paths_burp, paths_gospider, paths_zaproxy):
 	"""
 		Merge results from burp and gospider and remove duplicates
 
-		Return a sorted list of unique path
+		Return a sorted list of unique path and their parameters
 	"""
 
-	unique_paths = []
+	unique_paths = {}
+	unique_paths = merge_all_params(unique_paths, paths_burp)
+	unique_paths = merge_all_params(unique_paths, paths_gospider)
+	unique_paths = merge_all_params(unique_paths, paths_zaproxy)
 
-	for key, value in paths_burp.items():
-		if (key, value) not in unique_paths:
-			unique_paths.append((key, value))
+	return {k: unique_paths[k] for k in sorted(unique_paths)}
 
-	for key, value in paths_gospider.items():
-		if (key, value) not in unique_paths:
-			unique_paths.append((key, value))
 
-	for key, value in paths_zaproxy.items():
-		if (key, value) not in unique_paths:
-			unique_paths.append((key, value))
+def merge_all_params(unique_paths, d):
+	"""
+		Merge all parameters and remove duplicates
 
-	return sorted(unique_paths, key=lambda x: x[0])
+		Return unique_paths which is a dictionnary
+	"""
+
+	for key, value in d.items():
+		try:
+			unique_paths[key] = merge_dict(unique_paths[key], value)
+		except KeyError:
+			unique_paths[key] = {}
+			unique_paths[key] = value
+	return unique_paths
 
 
 def writing_md(paths, url_domain, out_file, params):
@@ -105,8 +114,8 @@ def writing_md(paths, url_domain, out_file, params):
 
 	with open(out_file if out_file != None else "out_markdown.md", 'w') as f:
 		f.write(f"- {url_domain}\n")
-		for path in paths:
-			url = parse.urlsplit(path[0])
+		for path, parameters in paths.items():
+			url = parse.urlsplit(path)
 			data = url.path.split('/')[1:-1]
 
 			counter_tab = 1
@@ -121,7 +130,7 @@ def writing_md(paths, url_domain, out_file, params):
 
 				if params:
 					if d == data[-1]:
-						for key, value in path[1].items(): 
+						for key, value in parameters.items(): 
 							if value:
 								for v in value:
 									to_print = '\t' * (counter_tab) + f"- {key} - {v}"

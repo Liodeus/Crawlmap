@@ -38,7 +38,9 @@ def parsing_gospider(gospider_file_path, exclude_extensions):
 
 def get_params_from_gospider(url):
 	"""
-		TODO
+		Get the parameters from a URL
+
+		Return a dictionnary of GET parameters
 	"""
 
 	dict_params = {

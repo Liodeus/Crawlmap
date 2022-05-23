@@ -38,7 +38,9 @@ def parsing_burp(burp_file_path, exclude_extensions, url_input):
 
 def get_params_from_burp(data, request):
 	"""
-		TODO
+		Get the parameters from a request
+
+		Return a dictionnary of parameters
 	"""
 
 	dict_params = {

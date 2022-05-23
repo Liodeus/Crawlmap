@@ -30,7 +30,9 @@ def parsing_zaproxy(zaproxy_file_path, exclude_extensions):
 
 def get_params_from_zaproxy(request):
 	"""
-		TODO
+		Get the parameters from a request
+
+		Return a dictionnary of parameters
 	"""
 
 	dict_params = {

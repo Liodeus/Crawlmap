@@ -22,7 +22,7 @@
 This tool is made to automate the process of creating a mindmap from crawling logs. This tool support logs from:
 - [Burp Suite](https://portswigger.net/burp) (xml format)
 - [Gospider](https://github.com/jaeles-project/gospider) (json format)
-- [Zaproxy](https://www.zaproxy.org/) (txt format)
+- [Zaproxy](https://www.zaproxy.org/) (har format)
 
 ## Requirements
 
