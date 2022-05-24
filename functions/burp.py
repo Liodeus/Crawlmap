@@ -1,3 +1,4 @@
+from functions.misc import remove_slash
 from urllib import parse
 import xml.etree.ElementTree as ET
 import base64
@@ -30,7 +31,8 @@ def parsing_burp(burp_file_path, exclude_extensions, url_input):
 		verb = data.split('\r\n')[0].split()
 		dict_params = get_params_from_burp(data, verb)
 		
-		url = parse.urlsplit(url_input + verb[1])
+		url_to_parse = remove_slash(url_input + verb[1])
+		url = parse.urlsplit(url_to_parse)
 		paths.append([url, dict_params])
 
 	return paths

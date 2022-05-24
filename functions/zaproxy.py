@@ -1,3 +1,4 @@
+from functions.misc import remove_slash
 from haralyzer import HarParser
 from urllib import parse
 import json
@@ -17,7 +18,8 @@ def parsing_zaproxy(zaproxy_file_path, exclude_extensions):
 			har_parser = HarParser(json.loads(f.read()))
 			for x in har_parser.har_data["entries"]:
 				req = x["request"]
-				url = parse.urlsplit(req["url"])
+				url_to_parse = remove_slash(req["url"])
+				url = parse.urlsplit(url_to_parse)
 				dict_params = get_params_from_zaproxy(req)
 				paths.append([url, dict_params])
 	except:

@@ -104,6 +104,18 @@ def merge_all_params(unique_paths, d):
 	return unique_paths
 
 
+def remove_slash(url):
+	try:
+		data = url.split('://')
+		data_split = data[1].split('/')
+		data_split = [x for x in data_split if x != ""]
+		url = f"{data[0]}://{'/'.join(data_split)}"
+	except:
+		pass
+
+	return url
+
+
 def writing_md(paths, url_domain, out_file, params):
 	"""
 		Write the paths as markdown into a file to import later on into another software

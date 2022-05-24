@@ -1,3 +1,4 @@
+from functions.misc import remove_slash
 from urllib import parse
 import json
 
@@ -25,6 +26,7 @@ def parsing_gospider(gospider_file_path, exclude_extensions):
 				except json.decoder.JSONDecodeError:
 					pass
 
+				url_to_parse = remove_slash(url_to_parse)
 				url = parse.urlsplit(url_to_parse)
 				dict_params = get_params_from_gospider(url)
 				paths.append([url, dict_params])
