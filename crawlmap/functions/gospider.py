@@ -1,4 +1,4 @@
-from functions.misc import remove_slash
+from crawlmap.functions.misc import remove_slash
 from urllib import parse
 import json
 

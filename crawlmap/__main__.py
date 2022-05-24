@@ -1,7 +1,7 @@
-from functions.burp import *
-from functions.gospider import *
-from functions.zaproxy import *
-from functions.misc import *
+from crawlmap.functions.burp import *
+from crawlmap.functions.gospider import *
+from crawlmap.functions.zaproxy import *
+from crawlmap.functions.misc import *
 import argparse
 
 
