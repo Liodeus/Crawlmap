@@ -27,10 +27,16 @@ def merge_dict(dictOne, dictTwo):
 		Return a dictionnary
 	"""
 
-	dictThree = {}
-	for one, two in zip(dictOne.items(), dictTwo.items()):
-		elem = list(filter(lambda x: x != "", set(one[1] + two[1])))
-		dictThree[one[0]] = elem
+	# NOT SURE THAT IT WORKS, BE CAREFULL AND TEST
+	dictThree = dictTwo.copy()
+	dictTwo.update(dictOne)
+	dictTwo.update(dictThree)
+
+	# dictThree = {}
+	# for one, two in zip(dictOne.items(), dictTwo.items()):
+	# 	print(type(one[1]), type(two[1]))
+	# 	elem = list(filter(lambda x: x != "", set(one[1] + two[1])))
+	# 	dictThree[one[0]] = elem
 
 	return dictThree
 
@@ -116,9 +122,11 @@ def remove_slash(url):
 	return url
 
 
-def writing_md(paths, url_domain, out_file, params):
+def writing_md(paths, url_domain, out_file, params, params_only):
 	"""
 		Write the paths as markdown into a file to import later on into another software
+
+		Return nothing, write to a file
 	"""
 
 	print("Writing to file")
@@ -132,18 +140,42 @@ def writing_md(paths, url_domain, out_file, params):
 
 			counter_tab = 1
 			for d in data:
-				to_print = '\t' * counter_tab + f"- {d}"
-				to_exclude = ''.join(data[0:counter_tab]) + d
+				if params_only:
+					if all(value != {'URL_PARM': [], 'DATA': [], 'JSON': [], 'UPLOAD': []} for value in parameters.values()):
+						to_print = '\t' * counter_tab + f"- {d}"
+						to_exclude = ''.join(data[0:counter_tab]) + d
 
-				if to_exclude not in list_done:
-					f.write(f"{to_print}\n")
-					list_done.append(to_exclude)
-				counter_tab += 1
+						if to_exclude not in list_done:
+							f.write(f"{to_print}\n")
+							list_done.append(to_exclude)
+						counter_tab += 1
 
-				if params:
-					if d == data[-1]:
-						for key, value in parameters.items(): 
-							if value:
-								for v in value:
-									to_print = '\t' * (counter_tab) + f"- {key} - {v}"
-									f.write(f"{to_print}\n")
+						if d == data[-1]:
+							for key, value in parameters.items(): 
+								if value:
+									for key2, value2 in value.items():
+										if value2:
+											for v in value2:
+												if v:
+													to_print = '\t' * (counter_tab) + f"- {key} - {key2} - {v}"
+													f.write(f"{to_print}\n")
+				else:
+					to_print = '\t' * counter_tab + f"- {d}"
+					to_exclude = ''.join(data[0:counter_tab]) + d
+
+					if to_exclude not in list_done:
+						f.write(f"{to_print}\n")
+						list_done.append(to_exclude)
+					counter_tab += 1
+
+					if params:
+						if d == data[-1]:
+							for key, value in parameters.items(): 
+								if value:
+									for key2, value2 in value.items():
+										if value2:
+											for v in value2:
+												if v:
+													to_print = '\t' * (counter_tab) + f"- {key} - {key2} - {v}"
+													f.write(f"{to_print}\n")
+

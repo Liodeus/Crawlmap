@@ -31,7 +31,7 @@ This tool is made to automate the process of creating a mindmap from crawling lo
 ## Installation
 
 ```bash
-git clone https://github.com/Liodeus/Crawlmap.git
+pip install crawlmap
 ```
 
 ## Usage
@@ -57,11 +57,12 @@ optional arguments:
   -g GOSPIDER, --gospider GOSPIDER
                         Output from Gospider (json)
   -z ZAPROXY, --zaproxy ZAPROXY
-                        Output from Zaproxy (txt)
+                        Output from Zaproxy (har)
   -o OUT, --out OUT     Output file
   --exclude EXCLUDE     Exclude extensions (Example : "png,svg,css,ico")
   --nofiles             Don't print files, only folders
-  --params              Print GET/POST parameters
+  --params              Print path with parameters if any
+  --params-only         Only print path with parameters
 ```
 
 ## Examples

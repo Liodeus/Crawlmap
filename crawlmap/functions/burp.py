@@ -2,6 +2,7 @@ from crawlmap.functions.misc import remove_slash
 from urllib import parse
 import xml.etree.ElementTree as ET
 import base64
+import json
 
 
 def parsing_burp(burp_file_path, exclude_extensions, url_input):
@@ -45,35 +46,50 @@ def get_params_from_burp(data, request):
 		Return a dictionnary of parameters
 	"""
 
-	dict_params = {
-		"[GET]": [],
-		"[POST]": [],
-		"[UPLOAD]": []
-	}
+	verb = request[0]
+	dict_params = {}
+	dict_params[f"[{verb}]"] = {"URL_PARM": [], "DATA": [], "JSON": [], "UPLOAD": []}
 
-	# GET parameters
+	# GET
 	try:
 		get_data = request[1].split('?')[1]
 		for element in get_data.split('&'):
-			dict_params["[GET]"].append(element.split('=')[0])
+			dict_params[f"[{verb}]"]["URL_PARM"].append(element.split('=')[0])
 	except IndexError:
 		pass
 
-	# Upload form
-	if "multipart/form-data" in data:
+	# UPLOAD
+	if "Content-Type: multipart/form-data" in data or "content-type: multipart/form-data" in data:
 		data = data.split('\r\n')
 		for element in data:
 			if "Content-Disposition: form-data; name=" in element:
 				upload_form_param = element.split(';')[1].split('=')[1][1:-1]
-				dict_params["[UPLOAD]"].append(upload_form_param)
+				dict_params[f"[{verb}]"]["UPLOAD"].append(upload_form_param)
 
-	# ONLY POST PARAMS ? (maybe PATCH, UPDATE or else, to try)
-	try:
-		post_params = data.split('\r\n')[-1].split('&')
-		if len(post_params) > 1:
-			for element in post_params:
-				dict_params["[POST]"].append(element.split('=')[0])
-	except:
-		pass
+	# JSON
+	elif "Content-Type: application/json" in data or "content-type: application/json" in data and verb != "GET":
+		d = data.split('\r\n')
+
+		try:
+			json_data = json.loads(d[-1].split('\n\n')[-1])
+			for key, value in json_data.items():
+				dict_params[f"[{verb}]"]["JSON"].append(key)
+		except AttributeError:
+			json_data = json_data[0]
+			for key, value in json_data.items():
+				dict_params[f"[{verb}]"]["JSON"].append(key)
+		except json.decoder.JSONDecodeError:
+			pass
+	# OTHER
+	else:
+		if verb != "GET":
+			try:
+				data_params = data.split('\r\n')[-1]
+				if data_params:
+					data_params = data_params.split('&')
+					for element in data_params:
+						dict_params[f"[{verb}]"]["DATA"].append(element.split('=')[0])
+			except:
+				pass
 
 	return dict_params
