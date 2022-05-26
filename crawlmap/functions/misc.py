@@ -15,30 +15,26 @@ def banner():
  \____/_|  \__,_| \_/\_/ |_|_| |_| |_|\__,_| .__/ 
                                            | |    
                                            |_|
-                                           	By Liodeus
+                                           	By Liodeus (Version 1.2)
 	'''
 	print(banner)
 
 
-def merge_dict(dictOne, dictTwo):
+def merge_dict(dict1, dict2):
 	"""
-		Merge two dictionnary and only add once a duplicate
+		Merge two dictionnary and remove duplicate
 
 		Return a dictionnary
 	"""
+	dict3 = {**dict1, **dict2}
 
-	# NOT SURE THAT IT WORKS, BE CAREFULL AND TEST
-	dictThree = dictTwo.copy()
-	dictTwo.update(dictOne)
-	dictTwo.update(dictThree)
+	for key in dict3.keys():
+		for k1, k2 in zip(dict1.values(), dict2.values()):
+			for v1, v2 in zip(k1.items(), k2.items()):
+				merge_data = list(set(v1[1]+v2[1]))
+				dict3[key][v1[0]] = merge_data
 
-	# dictThree = {}
-	# for one, two in zip(dictOne.items(), dictTwo.items()):
-	# 	print(type(one[1]), type(two[1]))
-	# 	elem = list(filter(lambda x: x != "", set(one[1] + two[1])))
-	# 	dictThree[one[0]] = elem
-
-	return dictThree
+	return dict3
 
 
 def merge_parsing(list_of_urlsplit, domain, flag_nofile, exclude_extensions):

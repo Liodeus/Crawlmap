@@ -42,17 +42,18 @@ def get_params_from_gospider(url):
 	"""
 		Get the parameters from a URL
 
-		Return a dictionnary of GET parameters
+		Return a dictionnary of parameters
 	"""
 
-	dict_params = {
-		"[GET]": [],
-		"[POST]": [],
-		"[UPLOAD]": []
-	}
+	dict_params = {}
+	dict_params["[GET]"] = {"URL_PARM": [], "DATA": [], "JSON": [], "UPLOAD": []}
 
-	for params in url.query.split('&'):
-		if params:
-			dict_params["[GET]"].append(params.split('=')[0])
+	# GET
+	try:
+		for element in url.query.split('&'):
+			if element:
+				dict_params["[GET]"]["URL_PARM"].append(element.split('=')[0])
+	except IndexError:
+		pass
 
 	return dict_params

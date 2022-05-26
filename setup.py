@@ -11,7 +11,7 @@ with io.open(path.join(pwd, "README.md"), encoding="utf-8") as readme:
 
 setup(
     name="crawlmap",
-    version="1.0",
+    version="1.2",
     description="A python3 script to change your crawling logs to a mindmap",
     long_description=desc,
     long_description_content_type="text/markdown",
