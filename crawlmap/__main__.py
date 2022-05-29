@@ -2,6 +2,7 @@ from crawlmap.functions.burp import *
 from crawlmap.functions.gospider import *
 from crawlmap.functions.zaproxy import *
 from crawlmap.functions.misc import *
+from os import path
 import argparse
 
 
@@ -28,6 +29,12 @@ def main():
 	domain = url.netloc
 	url = f"{url.scheme}://{url.netloc}"
 	out_file = args.out
+
+	if out_file:
+		if path.isdir(out_file):
+			print(f"{out_file} is a folder, aborting !")
+			exit()
+
 	nofiles = args.nofiles
 	exclude_extensions = [x.lower() for x in args.exclude.split(',')]
 	params = args.params

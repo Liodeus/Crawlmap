@@ -15,7 +15,7 @@ def banner():
  \____/_|  \__,_| \_/\_/ |_|_| |_| |_|\__,_| .__/ 
                                            | |    
                                            |_|
-                                           	By Liodeus (Version 1.2)
+                                           	By Liodeus (Version 1.3)
 	'''
 	print(banner)
 
@@ -26,13 +26,16 @@ def merge_dict(dict1, dict2):
 
 		Return a dictionnary
 	"""
-	dict3 = {**dict1, **dict2}
+	if list(*dict1) == list(*dict2):
+		dict3 = {**dict1, **dict2}
 
-	for key in dict3.keys():
-		for k1, k2 in zip(dict1.values(), dict2.values()):
-			for v1, v2 in zip(k1.items(), k2.items()):
-				merge_data = list(set(v1[1]+v2[1]))
-				dict3[key][v1[0]] = merge_data
+		for key in dict3.keys():
+			for k1, k2 in zip(dict1.values(), dict2.values()):
+				for v1, v2 in zip(k1.items(), k2.items()):
+					merge_data = list(set(v1[1]+v2[1]))
+					dict3[key][v1[0]] = merge_data
+	else:
+		return dict1
 
 	return dict3
 
