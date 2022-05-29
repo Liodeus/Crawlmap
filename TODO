@@ -1,0 +1,23 @@
+############
+### TODO ###
+############
+
+commit -m "correct a bug with merging functions, correct a bug when output file was a folder"
+
+
+JSON/XML data marche pas bien, voir que faire quand data chelou
+
+
+## Priority medium
+
+# Refaire la documentation et faire une video démo
+# Accepter des fichiers API (swagger (v2, v1?), postman)
+# Multi threads (parcour du fichier, la fonction qui semble prendre un max de temps : merge_parsing)
+# Better error message, in different part of the code
+# better XML data parsing ?
+
+__token__
+
+pypi-AgENdGVzdC5weXBpLm9yZwIkMjkzNmRiZGUtM2EzZS00ZjIwLTg3OTktMTZmOTMyMjIzNTQ5AAIleyJwZXJtaXNzaW9ucyI6ICJ1c2VyIiwgInZlcnNpb24iOiAxfQAABiAR_yyyLSQMt9OZB2JicgT6e4jZOU-a5z7ZTEz4-FvmBQ
+
+pypi-AgEIcHlwaS5vcmcCJDA3OGZlNzBhLTM2YzEtNGM2Ny1iODgyLTRhOTA5NDY2YmJhZQACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYguKwmJABVQEzvWdT5lr38-BX_8DbyVoR2MK-p-tqDcfo
