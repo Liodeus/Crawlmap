@@ -2,8 +2,31 @@
 ### TODO ###
 ############
 
-commit -m "correct a bug with merging functions, correct a bug when output file was a folder"
+crawlmap -u "https://test.com" --burp /home/liodeus/Documents/dvwa.burp -o test
 
+➜  ~/test/Crawlmap$ git:(main) ✗ cat test
+───────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: test
+───────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1   │ - https://test.com
+   2   │     - about.php
+   3   │     - dvwa
+   4   │         - js
+   5   │             - add_event_listeners.js
+   6   │             - dvwaPage.js
+   7   │     - ids_log.php
+   8   │     - index.php
+   9   │     - instructions.php
+  10   │     - login.php
+  11   │     - logout.php
+  12   │     - phpinfo.php
+  13   │     - robots.txt
+  14   │     - security.php
+  15   │     - setup.php
+  16   │     - test
+  17   │         - yolo
+
+Bug ne devrait rien afficher ?
 
 JSON/XML data marche pas bien, voir que faire quand data chelou
 
