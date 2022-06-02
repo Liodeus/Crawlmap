@@ -2,15 +2,10 @@
 ### TODO ###
 ############
 
+git commit -m "json data are now better parsed, if XML data, print XML"
 
-JSON/XML data marche pas bien, voir que faire quand data chelou
-
-Quand impossible a debug, mettre un truc genre - PARSING IMPOSSIBLE
 
 ## Priority medium
 
 # Refaire la documentation et faire une video démo
 # Accepter des fichiers API (swagger (v2, v1?), postman)
-# Multi threads (parcour du fichier, la fonction qui semble prendre un max de temps : merge_parsing)
-# Better error message, in different part of the code
-# better XML data parsing ?
