@@ -141,6 +141,7 @@ def writing_md(paths, url_domain, out_file, params, params_only):
 			for d in data:
 				if params_only:
 					if all(value != {'URL_PARM': [], 'DATA': [], 'JSON': [], 'UPLOAD': []} for value in parameters.values()):
+						print(data)
 						to_print = '\t' * counter_tab + f"- {d}"
 						to_exclude = ''.join(data[0:counter_tab]) + d
 
@@ -175,6 +176,9 @@ def writing_md(paths, url_domain, out_file, params, params_only):
 										if value2:
 											for v in value2:
 												if v:
-													to_print = '\t' * (counter_tab) + f"- {key} - {key2} - {v}"
+													if "*replace*" in v:
+														to_print = '\t' * (counter_tab + (v.count("*replace*")-1)) + f"- {key} - {key2} - {v.replace('*replace*', '')}"
+													else:
+														to_print = '\t' * (counter_tab) + f"- {key} - {key2} - {v}"
 													f.write(f"{to_print}\n")
 

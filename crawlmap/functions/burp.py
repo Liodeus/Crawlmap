@@ -31,7 +31,7 @@ def parsing_burp(burp_file_path, exclude_extensions, url_input):
 
 		verb = data.split('\r\n')[0].split()
 		dict_params = get_params_from_burp(data, verb)
-		
+
 		url_to_parse = remove_slash(url_input + verb[1])
 		url = parse.urlsplit(url_to_parse)
 		paths.append([url, dict_params])
@@ -67,29 +67,32 @@ def get_params_from_burp(data, request):
 				dict_params[f"[{verb}]"]["UPLOAD"].append(upload_form_param)
 
 	# JSON
-	elif "Content-Type: application/json" in data or "content-type: application/json" in data and verb != "GET":
-		d = data.split('\r\n')
+	elif verb != "GET":
+		d = data.split("Content-Length: ")
 
 		try:
-			json_data = json.loads(d[-1].split('\n\n')[-1])
-			for key, value in json_data.items():
-				dict_params[f"[{verb}]"]["JSON"].append(key)
-		except AttributeError:
-			json_data = json_data[0]
-			for key, value in json_data.items():
-				dict_params[f"[{verb}]"]["JSON"].append(key)
+			json_data = json.loads(d[1].split("\r\n\r\n")[-1])
+			if type(json_data) is list:
+				json_data = json_data[0]
+			recursive_items(json_data, dict_params, verb)
 		except json.decoder.JSONDecodeError:
+			if "?xml" in data and "version=" in data and "encoding=" in data:
+				dict_params[f"[{verb}]"]["DATA"].append("XML DATA")
 			pass
-	# OTHER
-	else:
-		if verb != "GET":
-			try:
-				data_params = data.split('\r\n')[-1]
-				if data_params:
-					data_params = data_params.split('&')
-					for element in data_params:
-						dict_params[f"[{verb}]"]["DATA"].append(element.split('=')[0])
-			except:
-				pass
+		except IndexError:
+			pass
 
 	return dict_params
+
+
+count = 0
+def recursive_items(dictionary, dict_params, verb):
+	global count
+	for key, value in dictionary.items():
+		if type(value) is dict:
+			dict_params[f"[{verb}]"]["JSON"].append('*replace*' * count + f"{key}")
+			count += 1
+			recursive_items(value, dict_params, verb)
+			count = 1
+		else:
+			dict_params[f"[{verb}]"]["JSON"].append('*replace*' * count + f"{key}")
